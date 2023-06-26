@@ -1,0 +1,19 @@
+{
+    "name": "skylab-170/conexion_base_datos_campus",
+    "autoload": {
+        "psr-4": {
+            "App\\":[ 
+                "./scripts",
+                "./scripts/db"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Diego Martinez"
+        }
+    ],
+    "require": {
+        "bramus/router": "~1.6"
+    }
+}
