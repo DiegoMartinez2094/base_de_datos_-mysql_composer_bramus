@@ -245,9 +245,11 @@ $router->get("/nivel", function(){
 $router->put("/nivel", function(){
     $_DATA = json_decode(file_get_contents("php://input"), true);
     $cox = new \App\connect();
-    $res = $cox->con->prepare("UPDATE levels SET name_level = :NAME_LEVEL, group_level= :GROUP_LEVEL  WHERE id =:CEDULA");
+    $res = $cox->con->prepare("UPDATE levels SET name_level = :NAME_LEVEL,
+     group_level= :GROUP_LEVEL WHERE id =:CEDULA");
     $res-> bindValue("NAME_LEVEL", $_DATA['name_level']);
     $res-> bindValue("GROUP_LEVEL", $_DATA['group_level']);
+    $res-> bindValue("CEDULA", $_DATA['id']); 
     $res -> execute();
     $res = $res->rowCount();
     echo json_encode($res);
@@ -274,6 +276,190 @@ $router->post("/nivel", function(){
     $res = $res->rowCount();
     echo json_encode($res);
 });
+
+/**------------------------------------------------------------------------------------------------------------------------------------------ */
+/**7-tabla locations ------------------------------------------------------------------------------------------------------------------------ */
+
+$router->get("/location", function(){
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("SELECT * FROM locations");
+    $res -> execute();
+    $res = $res->fetchAll(\PDO::FETCH_ASSOC);
+     // retorna la consulta como un array asociativo 
+    echo json_encode($res);
+});
+
+$router->put("/location", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("UPDATE locations SET name_location = :NAME_LOCATION WHERE id =:CEDULA");
+    $res-> bindValue("NAME_LOCATION", $_DATA['name_location']);
+    $res-> bindValue("CEDULA", $_DATA['id']); 
+    $res -> execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+
+$router -> delete("/location", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("DELETE FROM locations WHERE id =:CEDULA");
+    $res->bindValue("CEDULA", $_DATA["id"]);
+    $res->execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+
+$router->post("/location", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("INSERT INTO locations (name_location) VALUES
+     (:NAME_LOCATION)");
+    $res-> bindValue("NAME_LOCATION", $_DATA['name_location']);
+    $res -> execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+/**-------------------------------------------------------------------------------------------------------------------- */
+/**8- tabla position---- */
+
+$router->get("/posicion", function(){
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("SELECT * FROM position");
+    $res -> execute();
+    $res = $res->fetchAll(\PDO::FETCH_ASSOC);
+     // retorna la consulta como un array asociativo 
+    echo json_encode($res);
+});
+
+$router->put("/posicion", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("UPDATE position SET name_position = :NAME_POSITION, arl = :ARL WHERE id =:CEDULA");
+    $res-> bindValue("NAME_POSITION", $_DATA['name_position']);
+    $res-> bindValue("ARL", $_DATA['arl']);
+    $res-> bindValue("CEDULA", $_DATA['id']); 
+    $res -> execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+
+$router -> delete("/posicion", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("DELETE FROM position WHERE id =:CEDULA");
+    $res->bindValue("CEDULA", $_DATA["id"]);
+    $res->execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+
+$router->post("/posicion", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("INSERT INTO position (name_position, arl) VALUES
+     (:NAME_POSITION,:ARL)");
+    $res-> bindValue("NAME_POSITION", $_DATA['name_position']);
+    $res-> bindValue("ARL", $_DATA['arl']); //para editar se debe escribir la sentencia dentro del $_DATA["nom"] es decir { nom: Wilfer, id: 1}
+
+    $res -> execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+/**---------------------------------------------------------------------------------------------------- */
+/**9- tabla regions */
+$router->get("/region", function(){
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("SELECT * FROM regions");
+    $res -> execute();
+    $res = $res->fetchAll(\PDO::FETCH_ASSOC);
+     // retorna la consulta como un array asociativo 
+    echo json_encode($res);
+});
+
+$router->put("/region", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("UPDATE regions SET name_region = :NAME_REGION, id_country = :ID_COUNTRY WHERE id =:CEDULA");
+    $res-> bindValue("NAME_REGION", $_DATA['name_region']);
+    $res-> bindValue("ID_COUNTRY", $_DATA['id_country']);
+    $res-> bindValue("CEDULA", $_DATA['id']); 
+    $res -> execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+
+$router -> delete("/region", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("DELETE FROM regions WHERE id =:CEDULA");
+    $res->bindValue("CEDULA", $_DATA["id"]);
+    $res->execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+
+$router->post("/region", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("INSERT INTO regions (name_region, id_country) VALUES
+     (:NAME_REGION,:ID_COUNTRY)");
+    $res-> bindValue("NAME_REGION", $_DATA['name_region']);
+    $res-> bindValue("ID_COUNTRY", $_DATA['id_country']);
+    $res -> execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+/**---------------------------------------------------------------------------------------------------------------------------- */
+/**10-TABLA personal_ref---------------- */
+$router->get("/personal_ref", function(){
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("SELECT * FROM personal_ref");
+    $res -> execute();
+    $res = $res->fetchAll(\PDO::FETCH_ASSOC);
+     // retorna la consulta como un array asociativo 
+    echo json_encode($res);
+});
+
+$router->put("/personal_ref", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("UPDATE personal_ref SET full_name = :FULL_NAME,
+     cel_number= :CEL_NUMBER,relationship=:RELATIONSHIP,occupation=:OCCUPATION WHERE id =:CEDULA");
+    $res-> bindValue("FULL_NAME", $_DATA['full_name']);
+    $res-> bindValue("CEL_NUMBER", $_DATA['cel_number']);
+    $res-> bindValue("RELATIONSHIP", $_DATA['relationship']);
+    $res-> bindValue("OCCUPATION", $_DATA['occupation']);
+    $res-> bindValue("CEDULA", $_DATA['id']); 
+    $res -> execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+
+$router -> delete("/personal_ref", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("DELETE FROM personal_ref WHERE id =:CEDULA");
+    $res->bindValue("CEDULA", $_DATA["id"]);
+    $res->execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+
+$router->post("/personal_ref", function(){
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $cox = new \App\connect();
+    $res = $cox->con->prepare("INSERT INTO personal_ref (full_name, cel_number,relationship,occupation) VALUES
+     (:FULL_NAME,:CEL_NUMBER,:RELATIONSHIP,:OCCUPATION)");
+   $res-> bindValue("FULL_NAME", $_DATA['full_name']);
+   $res-> bindValue("CEL_NUMBER", $_DATA['cel_number']);
+   $res-> bindValue("RELATIONSHIP", $_DATA['relationship']);
+   $res-> bindValue("OCCUPATION", $_DATA['occupation']);
+    $res -> execute();
+    $res = $res->rowCount();
+    echo json_encode($res);
+});
+
 
 $router->run();
     /*
