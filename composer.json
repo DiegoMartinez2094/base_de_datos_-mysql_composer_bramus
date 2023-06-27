@@ -1,5 +1,5 @@
 {
-    "name": "skylab-171/conexion_base_datos_campuss",
+    "name": "martinez/conexion_base_datos_campuss",
     "autoload": {
         "psr-4": {
             "App\\":[ 
