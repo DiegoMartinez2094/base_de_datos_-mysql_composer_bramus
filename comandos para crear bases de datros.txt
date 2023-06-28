@@ -1,0 +1,22 @@
+mysql -u campus -p //abrir interfaz mysql
+CREATE DATABASE nombre_database //crear base de datos
+DROP DATABASE nombre_database //elimina la base de datos
+USE nombre_database //designar para usar cierta base de datos de ahi para todo
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    correo VARCHAR(255),
+    contra VARCHAR(50),
+    fecha_nacimiento DATE,
+    celular VARCHAR(20),
+    fecha_registro DATETIME
+    PRIMARY KEY (id)
+); //crear tabla 
+
+INSERT INTO tabla VALUES('andres','casa',1); //inserta valores a tabla
+INSERT INTO tabla (nombre, objeto, numero) VALUES('andres', 'casa', 1); //otra forma para insertar valores a tabla
+
+
+SELECT * FROM usuarios; //consulta lo que hay en la tabla usuarios
+NOW() //entrega la fecha y hora actual
+SELECT * FROM tabla WHERE palabra LIKE '%word%'; //devuelve todas las filas que coincide con la palabra word
